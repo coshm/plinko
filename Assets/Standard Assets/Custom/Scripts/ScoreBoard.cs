@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScoreBoard : MonoBehaviour {
+public class ScoreBoard : Singleton<ScoreBoard> {
 
-    private float score;
-    private ScoreTileFactory factory;
+    private float totalScore;
 
 	// Use this for initialization
 	void Start () {
-	    factory = gameObject.GetComponent<ScoreTileFactory>();
-        score = 0f;
+        totalScore = 0f;
 	}
 	
 	// Update is called once per frame
@@ -18,11 +16,10 @@ public class ScoreBoard : MonoBehaviour {
 	}
 
     void OnGUI() {
-        GUI.Label(new Rect(10, 10, 100, 20), score.ToString());
+        GUI.Label(new Rect(10, 10, 100, 20), totalScore.ToString());
     }
 
-    public void AddScore(float score, int idx) {
-        this.score += score;
-        factory.CreateScoreTile(idx); 
+    public void AddScore(float score) {
+        this.totalScore += score;
     }
 }

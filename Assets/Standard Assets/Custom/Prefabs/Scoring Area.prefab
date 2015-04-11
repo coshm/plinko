@@ -1,70 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &123462
+--- !u!1 &124444
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 481384}
-  - 114: {fileID: 11412570}
-  - 114: {fileID: 11423120}
+  - 4: {fileID: 438096}
+  - 61: {fileID: 6119086}
+  - 114: {fileID: 11482852}
   m_Layer: 0
-  m_Name: ScoreBoard
+  m_Name: Scoring Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &481384
+--- !u!4 &438096
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123462}
+  m_GameObject: {fileID: 124444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.42462897, y: -.928531408, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11412570
+--- !u!61 &6119086
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124444}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+--- !u!114 &11482852
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123462}
+  m_GameObject: {fileID: 124444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f88e304606ba8b94491150bd3e426495, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f62d676d0faef342baf08ecff8342ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11423120
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 968f451d64996af40b19c17fc5021b41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  colors:
-  - {r: 1, g: .392156869, b: .392156869, a: 0}
-  - {r: .392156869, g: 1, b: .392156869, a: 0}
-  - {r: .392156869, g: .392156869, b: 1, a: 0}
-  - {r: .392156869, g: 1, b: 1, a: 0}
-  - {r: 1, g: .392156869, b: 1, a: 0}
-  - {r: 1, g: 1, b: .392156869, a: 0}
-  scoreTile: {fileID: 11488300, guid: 60aea6e37e9ba064cb69b157b52814d6, type: 2}
+  score: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -74,5 +63,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 123462}
+  m_RootGameObject: {fileID: 124444}
   m_IsPrefabParent: 1

@@ -3,12 +3,18 @@ using System.Collections;
 
 public class PuckController : MonoBehaviour {
 
+    public enum PuckState {
+        POSITIONING,
+        MOUSE_DOWN,
+        DROPPING,
+        DROP_COMPLETE
+    };
+
     [SerializeField] private float yBound;
     [SerializeField] private Vector2 xBounds;
 
     private Rigidbody2D puck;
-    private bool isMouseDown = false;
-    private bool isMouseReleased = false;
+    private PuckState state;
     private Vector2 mouseDown;
 
     [SerializeField] private float maxForce;
@@ -17,33 +23,39 @@ public class PuckController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         puck = gameObject.GetComponent<Rigidbody2D>();
+        state = PuckState.POSITIONING;
 	}
 	
 	// Update is called once per frame
     void Update() {
-        if (!isMouseReleased) {
-            if (Input.GetMouseButtonDown(0)) {
-                isMouseDown = true;
-                mouseDown = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                print("MOUSE PRESSED");
-            }
-
-            if (!isMouseDown) {
+        switch (state) {
+            case PuckState.POSITIONING:
                 MovePuck();
-                print("NEW PUCK POSITION : " + transform.position);
-            }
+                if (Input.GetMouseButtonDown(0)) {
+                    state = PuckState.MOUSE_DOWN;
+                    mouseDown = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
+                break;
+            case PuckState.MOUSE_DOWN:
+                if (Input.GetMouseButtonUp(0)) {
+                    state = PuckState.DROPPING;
+                    puck.isKinematic = false;
 
-            if (Input.GetMouseButtonUp(0)) {
-                print("MOUSE RELEASED");
-                isMouseReleased = true;
-                isMouseDown = false;
-                puck.isKinematic = false;
-
-                Vector2 mouseUp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                float forceMag = CalculateForceMag(mouseDown, mouseUp);
-                Vector2 forceDir = CalculateForceDir(transform.position, mouseUp);
-                puck.AddForce(forceDir * forceMag, ForceMode2D.Impulse);
-            }
+                    Vector2 mouseUp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    float forceMag = CalculateForceMag(mouseDown, mouseUp);
+                    Vector2 forceDir = CalculateForceDir(transform.position, mouseUp);
+                    puck.AddForce(forceDir * forceMag, ForceMode2D.Impulse);
+                }
+                break;
+            case PuckState.DROPPING:
+                break;
+            case PuckState.DROP_COMPLETE:
+                if (Input.GetMouseButtonUp(0)) {
+                    state = PuckState.POSITIONING;
+                    puck.isKinematic = true;
+                    transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, yBound);
+                }
+                break;
         }
 	}
 
@@ -70,5 +82,9 @@ public class PuckController : MonoBehaviour {
         Vector2 dirNorm = dir.normalized;
 
         return (mouseUp - puckPos).normalized;
+    }
+
+    public void CompleteDrop() {
+        state = PuckState.DROP_COMPLETE;
     }
 }
